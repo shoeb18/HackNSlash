@@ -8,6 +8,8 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class UDataAsset_InputConfig;
+struct FInputActionValue;
 /**
  * 
  */
@@ -20,6 +22,9 @@ public:
 	AHeroCharacter();
 	
 protected:
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 	virtual void BeginPlay() override;
 
 private:
@@ -33,5 +38,18 @@ private:
 	USpringArmComponent* SpringArmComponent;
 
 #pragma endregion
+
+
+#pragma region Inputs
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
+	UDataAsset_InputConfig* InputConfigDataAsset;
+
+	void Input_Move(const FInputActionValue& Value);
+	void Input_Look(const FInputActionValue& Value);
+
+#pragma endregion
+
+
 
 };
