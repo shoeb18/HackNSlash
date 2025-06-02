@@ -24,5 +24,6 @@ void UCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 	}
 
 	GroundSpeed = OwningCharacter->GetVelocity().Size2D();
+	Direction = CalculateDirection(OwningCharacter->GetVelocity(), OwningCharacter->GetActorRotation());
 	OwningMovementComponent->GetCurrentAcceleration().SizeSquared2D() > 0 ? bHasAcceleration = true : bHasAcceleration = false;
 }

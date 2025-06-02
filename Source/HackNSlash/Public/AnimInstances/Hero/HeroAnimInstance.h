@@ -6,6 +6,8 @@
 #include "AnimInstances/CharacterAnimInstance.h"
 #include "HeroAnimInstance.generated.h"
 
+
+class AHeroCharacter;
 /**
  * 
  */
@@ -14,4 +16,14 @@ class HACKNSLASH_API UHeroAnimInstance : public UCharacterAnimInstance
 {
 	GENERATED_BODY()
 	
+
+public:
+	virtual void NativeInitializeAnimation() override;
+	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;
+
+
+protected:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|References")
+	AHeroCharacter* OwningHeroCharacter;
+
 };
