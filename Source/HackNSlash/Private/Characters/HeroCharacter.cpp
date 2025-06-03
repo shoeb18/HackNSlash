@@ -9,6 +9,7 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/HeroInputComponent.h"
 #include "PlayerGameplayTags.h"
+#include "AbilitySystem/CharacterAbilitySystemComponent.h"
 
 #include "DebugHelper.h"
 
@@ -36,6 +37,18 @@ AHeroCharacter::AHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f; // Set braking deceleration for walking
 }
 
+void AHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (CharacterAbilitySystemComponent && CharacterAttributeSet)
+	{
+		const FString ASCText = FString::Printf(TEXT("Owner Actor: %s, Avatar Actor : %s"), *CharacterAbilitySystemComponent->GetOwnerActor()->GetActorLabel(), *CharacterAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+		Debug::Print(TEXT("Ability System is valid. ") + ASCText, FColor::Green);
+		Debug::Print(TEXT("Attribute Set is valid. ") + ASCText, FColor::Green);
+	}
+}
+
 void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	checkf(InputConfigDataAsset, TEXT("InputConfigDataAsset is null, can't proceed with input setup."));
@@ -58,7 +71,6 @@ void AHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Debug::Print(TEXT("HeroCharacter BeginPlay called"));
 }
 
 void AHeroCharacter::Input_Move(const FInputActionValue& Value)

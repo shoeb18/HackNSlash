@@ -2,6 +2,8 @@
 
 
 #include "Characters/BaseCharacter.h"
+#include "AbilitySystem/CharacterAbilitySystemComponent.h"
+#include "AbilitySystem/CharacterAttributeSet.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -11,5 +13,28 @@ ABaseCharacter::ABaseCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	GetMesh()->bReceivesDecals = false;
+
+	// Initialize Ability System Component
+	CharacterAbilitySystemComponent = CreateDefaultSubobject<UCharacterAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	CharacterAbilitySystemComponent->SetIsReplicated(true);
+
+	// Initialize Attribute Set
+	CharacterAttributeSet = CreateDefaultSubobject<UCharacterAttributeSet>(TEXT("AttributeSet"));
+
+}
+
+UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+{
+	return CharacterAbilitySystemComponent;
+}
+
+void ABaseCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (CharacterAbilitySystemComponent)
+	{
+		CharacterAbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
 }
 
