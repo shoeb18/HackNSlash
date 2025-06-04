@@ -3,6 +3,7 @@
 
 #include "AnimInstances/Hero/HeroAnimInstance.h"
 #include "Characters/HeroCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 void UHeroAnimInstance::NativeInitializeAnimation()
 {
@@ -15,4 +16,12 @@ void UHeroAnimInstance::NativeInitializeAnimation()
 void UHeroAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeThreadSafeUpdateAnimation(DeltaSeconds);
+
+	if (OwningHeroCharacter)
+	{
+		// Update the in-air state based on the character's movement
+		bIsInAir = OwningHeroCharacter->GetCharacterMovement()->IsFalling();
+
+		bShouldMove = OwningMovementComponent->GetCurrentAcceleration() != FVector(0,0,0) && (GroundSpeed > 3.0f);
+	}
 }

@@ -68,6 +68,7 @@ void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 	HeroInputComponent->BindNativeInputAction(InputConfigDataAsset, PlayerGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 	HeroInputComponent->BindNativeInputAction(InputConfigDataAsset, PlayerGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
+	HeroInputComponent->BindNativeInputAction(InputConfigDataAsset, PlayerGameplayTags::InputTag_Jump, ETriggerEvent::Triggered, this, &ACharacter::Jump);
 }
 
 void AHeroCharacter::BeginPlay()
