@@ -11,6 +11,7 @@
 #include "PlayerGameplayTags.h"
 #include "AbilitySystem/CharacterAbilitySystemComponent.h"
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
+#include "Components/Combat/HeroCombatComponent.h"
 
 
 #include "DebugHelper.h"
@@ -37,6 +38,8 @@ AHeroCharacter::AHeroCharacter()
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Character will face the direction of movement
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.f, 0.0f); // Set rotation rate for character movement
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f; // Set braking deceleration for walking
+
+	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 }
 
 void AHeroCharacter::PossessedBy(AController* NewController)
