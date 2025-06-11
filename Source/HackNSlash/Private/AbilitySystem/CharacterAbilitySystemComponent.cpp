@@ -12,7 +12,7 @@ void UCharacterAbilitySystemComponent::OnAbilityInputPressed(FGameplayTag InInpu
 
 	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
-		if (!AbilitySpec.DynamicAbilityTags.HasTag(InInputTag))
+		if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag))
 		{
 			continue;
 		}
