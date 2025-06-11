@@ -14,7 +14,7 @@ void UCharacterGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* A
 	{
 		if (ActorInfo && !Spec.IsActive())
 		{
-			ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, false);
+			ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle);
 		}
 	}
 }
@@ -35,4 +35,9 @@ void UCharacterGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Hand
 UPawnCombatComponent* UCharacterGameplayAbility::GetPawnCombatComponentFromActorInfo() const
 {
 	return	GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponent>();
+}
+
+UCharacterAbilitySystemComponent* UCharacterGameplayAbility::GetCharacterAbilitySystemComponentFromActorInfo() const
+{
+	return Cast<UCharacterAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }

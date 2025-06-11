@@ -7,6 +7,7 @@
 #include "CharacterGameplayAbility.generated.h"
 
 class UPawnCombatComponent;
+class UCharacterAbilitySystemComponent;
 
 UENUM(BlueprintType)
 enum class ECharacterAbilityActivationPolicy : uint8
@@ -40,5 +41,8 @@ protected:
 
 	UFUNCTION(BlueprintPure, Category = "Character|Ability")
 	UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
+
+	UFUNCTION(BlueprintPure, Category = "Character|Ability")
+	UCharacterAbilitySystemComponent* GetCharacterAbilitySystemComponentFromActorInfo() const;
 
 };

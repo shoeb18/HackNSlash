@@ -39,6 +39,7 @@ AHeroCharacter::AHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.f, 0.0f); // Set rotation rate for character movement
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f; // Set braking deceleration for walking
 
+	// Initialize Combat Component
 	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 }
 
@@ -50,7 +51,7 @@ void AHeroCharacter::PossessedBy(AController* NewController)
 	{
 		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
 		{
-			LoadedData->GiveToAbilitySystemComponent(GetCharacterAbilitySystemComponent());
+			LoadedData->GiveToAbilitySystemComponent(CharacterAbilitySystemComponent);
 		}
 	}
 }

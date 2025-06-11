@@ -23,11 +23,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Combat")
 	ABaseWeapon* GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Combat")
-	FGameplayTag CurrentEquippedWeaponTag;
-
 	UFUNCTION(BlueprintCallable, Category = "Combat")
 	ABaseWeapon* GetCharacterCurrentEquippedWeapon() const;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Combat")
+	FGameplayTag CurrentEquippedWeaponTag;
 		
 private:
 	TMap<FGameplayTag, ABaseWeapon*> CharacterCarriedWeaponMap;

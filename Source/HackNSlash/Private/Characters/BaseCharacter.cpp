@@ -16,11 +16,9 @@ ABaseCharacter::ABaseCharacter()
 
 	// Initialize Ability System Component
 	CharacterAbilitySystemComponent = CreateDefaultSubobject<UCharacterAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	CharacterAbilitySystemComponent->SetIsReplicated(true);
 
 	// Initialize Attribute Set
 	CharacterAttributeSet = CreateDefaultSubobject<UCharacterAttributeSet>(TEXT("AttributeSet"));
-
 }
 
 UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
