@@ -73,6 +73,8 @@ void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	HeroInputComponent->BindNativeInputAction(InputConfigDataAsset, PlayerGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 	HeroInputComponent->BindNativeInputAction(InputConfigDataAsset, PlayerGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
 	HeroInputComponent->BindNativeInputAction(InputConfigDataAsset, PlayerGameplayTags::InputTag_Jump, ETriggerEvent::Triggered, this, &ACharacter::Jump);
+
+	HeroInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }
 
 void AHeroCharacter::BeginPlay()
@@ -108,4 +110,14 @@ void AHeroCharacter::Input_Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxis.X);
 		AddControllerPitchInput(LookAxis.Y);
 	}
+}
+
+void AHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	CharacterAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void AHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	CharacterAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }

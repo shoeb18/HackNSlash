@@ -13,5 +13,9 @@ UCLASS()
 class HACKNSLASH_API UCharacterAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
+
+public:
+	void OnAbilityInputPressed(FGameplayTag InInputTag);
+	void OnAbilityInputReleased(FGameplayTag InInputTag);
 	
 };
