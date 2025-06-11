@@ -6,6 +6,7 @@
 #include "AnimInstances/BaseAnimInstance.h"
 #include "HeroLinkedAnimLayer.generated.h"
 
+class UHeroAnimInstance;
 /**
  * 
  */
@@ -14,4 +15,7 @@ class HACKNSLASH_API UHeroLinkedAnimLayer : public UBaseAnimInstance
 {
 	GENERATED_BODY()
 	
+public:
+	UFUNCTION(BlueprintPure, meta = (BlueprintThreadSafe))
+	UHeroAnimInstance* GetHeroAnimInstance() const;
 };
