@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Items/Weapons/BaseWeapon.h"
 #include "CharacterTypes/CharacterStructTypes.h"
+#include "GameplayAbilitySpecHandle.h"
 #include "HeroWeapon.generated.h"
 
 /**
@@ -18,4 +19,14 @@ class HACKNSLASH_API AHeroWeapon : public ABaseWeapon
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "WeaponData")
 	FHeroWeaponData WeaponData;
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon|Ability")
+	void AssignGrantedAbilitySpecHandles(const TArray<FGameplayAbilitySpecHandle>& InSpecHandles);
+
+	UFUNCTION(BlueprintPure, Category = "Weapon|Ability")
+	TArray<FGameplayAbilitySpecHandle> GetGrantedAbilitySpecHandles() const;
+
+private:
+
+	TArray<FGameplayAbilitySpecHandle> GrantedAbilitySpecHandles;
 };
