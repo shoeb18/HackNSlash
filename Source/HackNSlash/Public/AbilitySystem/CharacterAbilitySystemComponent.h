@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "CharacterTypes/CharacterStructTypes.h"
 #include "CharacterAbilitySystemComponent.generated.h"
 
 /**
@@ -17,5 +18,8 @@ class HACKNSLASH_API UCharacterAbilitySystemComponent : public UAbilitySystemCom
 public:
 	void OnAbilityInputPressed(FGameplayTag InInputTag);
 	void OnAbilityInputReleased(FGameplayTag InInputTag);
+
+	UFUNCTION(BlueprintCallable, Category = "Character|Ability", meta = (ApplyLevel = "1"))
+	void GrantHeroWeaponAbilities(const TArray<FHeroAbilitySet>& InDefaultWeaponAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandle);
 	
 };
