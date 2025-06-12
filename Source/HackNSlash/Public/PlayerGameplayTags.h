@@ -16,6 +16,11 @@ namespace PlayerGameplayTags
 	/* Player Tags */
 	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Sword);
 
+	/* Ability Tags */
+	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Sword);
+	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Unequip_Sword);
+
+	/* Event Tags */
 	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Equip_Sword);
 	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Unequip_Sword);
 
