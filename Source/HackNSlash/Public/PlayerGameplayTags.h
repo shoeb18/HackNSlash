@@ -27,4 +27,6 @@ namespace PlayerGameplayTags
 	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Equip_Sword);
 	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Unequip_Sword);
 
+	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_JumpToFinisher);
+
 }
