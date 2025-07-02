@@ -4,6 +4,8 @@
 #include "Items/Weapons/BaseWeapon.h"
 #include "Components/BoxComponent.h"
 
+#include "DebugHelper.h"
+
 ABaseWeapon::ABaseWeapon()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -19,6 +21,42 @@ ABaseWeapon::ABaseWeapon()
 	WeaponCollisionBox->SetBoxExtent(FVector(20.f));
 	WeaponCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
+	WeaponCollisionBox->OnComponentBeginOverlap.AddUniqueDynamic(this, &ABaseWeapon::OnWeaponBeginOverlap);
+	WeaponCollisionBox->OnComponentEndOverlap.AddUniqueDynamic(this, &ABaseWeapon::OnWeaponEndOverlap);
+}
+
+void ABaseWeapon::OnWeaponBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	APawn* WeaponOwningPawn = GetInstigator<APawn>();
+
+	checkf(WeaponOwningPawn, TEXT("forgot to assign an instigator as the owning pawn of the weapon : %s"), *GetName());
+
+	if (APawn* HitPawn = Cast<APawn>(OtherActor))
+	{
+		if (WeaponOwningPawn != HitPawn)
+		{
+			Debug::Print(GetName() + TEXT(" Begin overlap with ") + HitPawn->GetName(), FColor::Green, 5.f);
+		}
+
+		// TODO : Implement hit check for enemy character
+	}
+}
+
+void ABaseWeapon::OnWeaponEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	APawn* WeaponOwningPawn = GetInstigator<APawn>();
+
+	checkf(WeaponOwningPawn, TEXT("forgot to assign an instigator as the owning pawn of the weapon : %s"), *GetName());
+
+	if (APawn* HitPawn = Cast<APawn>(OtherActor))
+	{
+		if (WeaponOwningPawn != HitPawn)
+		{
+			Debug::Print(GetName() + TEXT(" End overlap with ") + HitPawn->GetName(), FColor::Red, 5.f);
+		}
+
+		// TODO : Implement hit check for enemy character
+	}
 }
 
 
