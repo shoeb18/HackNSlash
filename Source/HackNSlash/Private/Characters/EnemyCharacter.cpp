@@ -4,7 +4,10 @@
 #include "Characters/EnemyCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/Combat/EnemyCombatComponent.h"
+#include "Engine/AssetManager.h"
+#include "DataAssets/StartupData/DataAsset_EnemyStartUpData.h"
 
+#include "DebugHelper.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -22,4 +25,32 @@ AEnemyCharacter::AEnemyCharacter()
 
 	// Initialize the EnemyCombatComponent
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
+}
+
+void AEnemyCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	InitEnemyStartupData();
+}
+
+void AEnemyCharacter::InitEnemyStartupData()
+{
+	if (CharacterStartUpData.IsNull())
+	{
+		return;
+	}
+
+	UAssetManager::GetStreamableManager().RequestAsyncLoad(
+		CharacterStartUpData.ToSoftObjectPath(),
+		FStreamableDelegate::CreateLambda(
+			[this]()
+			{
+				if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.Get())
+				{
+					LoadedData->GiveToAbilitySystemComponent(CharacterAbilitySystemComponent);
+				}
+			}
+		)
+	);
 }
