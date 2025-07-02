@@ -27,6 +27,11 @@ AEnemyCharacter::AEnemyCharacter()
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
 }
 
+UPawnCombatComponent* AEnemyCharacter::GetPawnCombatComponent() const
+{
+	return EnemyCombatComponent;
+}
+
 void AEnemyCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);

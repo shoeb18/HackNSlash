@@ -22,6 +22,10 @@ class HACKNSLASH_API AHeroCharacter : public ABaseCharacter
 
 public:
 	AHeroCharacter();
+
+	//~ Begin IPawnCombatInterface Interface.
+	UPawnCombatComponent* GetPawnCombatComponent() const override;
+	//~ End IPawnCombatInterface Interface.
 	
 protected:
 

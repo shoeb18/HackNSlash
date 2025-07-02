@@ -19,6 +19,10 @@ class HACKNSLASH_API AEnemyCharacter : public ABaseCharacter
 public:
 	AEnemyCharacter();
 
+	//~ Begin IPawnCombatInterface Interface.
+	UPawnCombatComponent* GetPawnCombatComponent() const override;
+	//~ End IPawnCombatInterface Interface.
+
 protected:
 
 	//~ Begin APawn Interface.
