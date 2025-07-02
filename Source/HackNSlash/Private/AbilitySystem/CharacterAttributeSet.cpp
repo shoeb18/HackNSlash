@@ -5,10 +5,10 @@
 
 UCharacterAttributeSet::UCharacterAttributeSet()
 {
-	InitCurrentHealth(100.0f);
-	InitMaxHealth(100.0f);
+	InitCurrentHealth(1.0f);
+	InitMaxHealth(1.0f);
 	InitCurrentRage(0.0f);
-	InitMaxRage(100.0f);
-	InitAttackPower(10.0f);
-	InitDefensePower(5.0f);
+	InitMaxRage(0.0f);
+	InitAttackPower(0.0f);
+	InitDefensePower(0.0f);
 }
