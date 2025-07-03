@@ -8,6 +8,8 @@
 
 class UBoxComponent;
 
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*);
+
 
 UCLASS()
 class HACKNSLASH_API ABaseWeapon : public AActor
@@ -17,6 +19,8 @@ class HACKNSLASH_API ABaseWeapon : public AActor
 public:	
 	ABaseWeapon();
 
+	FOnTargetInteractedDelegate OnWeaponHitTarget;
+	FOnTargetInteractedDelegate OnWeaponPulledFromTarget;
 
 protected:
 
