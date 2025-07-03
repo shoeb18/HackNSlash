@@ -14,3 +14,10 @@ enum class ECharacterValidType : uint8
 	Valid,
 	Invalid,
 };
+
+UENUM()
+enum class ECharacterSuccessType : uint8
+{
+	Successful,
+	Failed,
+};
