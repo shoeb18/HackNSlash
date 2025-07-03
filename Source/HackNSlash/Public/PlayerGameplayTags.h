@@ -35,4 +35,6 @@ namespace PlayerGameplayTags
 	/* Shared Tags */
 	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Melee_Hit);
 
+	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
+
 }

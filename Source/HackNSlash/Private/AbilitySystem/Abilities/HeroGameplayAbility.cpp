@@ -4,6 +4,9 @@
 #include "AbilitySystem/Abilities/HeroGameplayAbility.h"
 #include "Characters/HeroCharacter.h"
 #include "Controllers/HeroController.h"
+#include "AbilitySystem/CharacterAbilitySystemComponent.h"
+#include "PlayerGameplayTags.h"
+
 
 AHeroCharacter* UHeroGameplayAbility::GetHeroCharacterFromActorInfo()
 {
@@ -28,4 +31,32 @@ AHeroController* UHeroGameplayAbility::GetHeroControllerFromActorInfo()
 UHeroCombatComponent* UHeroGameplayAbility::GetHeroCombatComponentFromActorInfo()
 {
 	return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
+}
+
+FGameplayEffectSpecHandle UHeroGameplayAbility::MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InCurrentComboCount)
+{
+	check(EffectClass);
+
+	FGameplayEffectContextHandle ContextHandle = GetCharacterAbilitySystemComponentFromActorInfo()->MakeEffectContext();
+	ContextHandle.SetAbility(this);
+	ContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
+	ContextHandle.AddInstigator(GetAvatarActorFromActorInfo(), GetAvatarActorFromActorInfo());
+
+	FGameplayEffectSpecHandle EffectSpecHandle = GetCharacterAbilitySystemComponentFromActorInfo()->MakeOutgoingSpec(
+		EffectClass,
+		GetAbilityLevel(),
+		ContextHandle
+	);
+
+	EffectSpecHandle.Data->SetSetByCallerMagnitude(
+		PlayerGameplayTags::Shared_SetByCaller_BaseDamage,
+		InWeaponBaseDamage
+	);
+
+	if (InCurrentAttackTypeTag.IsValid())
+	{
+		EffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag, InCurrentComboCount);
+	}
+
+	return EffectSpecHandle;
 }

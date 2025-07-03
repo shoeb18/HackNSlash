@@ -35,4 +35,6 @@ namespace PlayerGameplayTags
 
 	/* Shared Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Melee_Hit, "Shared.Event.Melee.Hit");
+
+	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_BaseDamage, "Shared.SetByCaller.BaseDamage");
 }
