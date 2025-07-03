@@ -29,6 +29,9 @@ namespace PlayerGameplayTags
 
 	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_JumpToFinisher);
 
+	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Light);
+	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Heavy);
+
 	/* Enemy Tags */
 	HACKNSLASH_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
 
