@@ -43,6 +43,9 @@ public:
 	virtual void OnHitTargetActor(AActor* HitActor);
 	virtual void OnHitPulledFromActor(AActor* HitActor);
 
+protected:
+	TArray<AActor*> OverlappedActors;
+
 
 private:
 	TMap<FGameplayTag, ABaseWeapon*> CharacterCarriedWeaponMap;

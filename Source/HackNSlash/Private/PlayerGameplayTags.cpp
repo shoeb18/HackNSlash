@@ -32,4 +32,7 @@ namespace PlayerGameplayTags
 
 	/* Enemy Tags */
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Weapon, "Enemy.Weapon");
+
+	/* Shared Tags */
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Melee_Hit, "Shared.Event.Melee.Hit");
 }
