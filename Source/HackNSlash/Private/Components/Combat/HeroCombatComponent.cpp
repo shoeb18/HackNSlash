@@ -37,7 +37,7 @@ void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
 
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
 		GetOwningPawn(),
-		PlayerGameplayTags::Shared_Event_Melee_Hit,
+		PlayerGameplayTags::Shared_Event_MeleeHit,
 		Data
 	);
 }
