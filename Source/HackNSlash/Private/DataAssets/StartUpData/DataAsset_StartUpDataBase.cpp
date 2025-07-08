@@ -20,8 +20,8 @@ void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UCharacterAbilityS
 		{
 			if (!EffectClass)
 				continue;
-			UGameplayEffect* Effect_CDO = EffectClass->GetDefaultObject<UGameplayEffect>();
 
+			UGameplayEffect* Effect_CDO = EffectClass->GetDefaultObject<UGameplayEffect>();
 
 			InCharacterASC->ApplyGameplayEffectToSelf(
 				Effect_CDO,
