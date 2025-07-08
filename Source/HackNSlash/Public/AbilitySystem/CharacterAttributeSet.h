@@ -51,4 +51,8 @@ public:
 	FGameplayAttributeData DefensePower;
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, DefensePower);
 
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	FGameplayAttributeData DamageTaken;
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, DamageTaken);
+
 };
