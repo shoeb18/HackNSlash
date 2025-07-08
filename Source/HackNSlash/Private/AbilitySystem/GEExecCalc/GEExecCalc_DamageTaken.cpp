@@ -48,6 +48,7 @@ UGEExecCalc_DamageTaken::UGEExecCalc_DamageTaken()
 	/* smart way of doing capture using struct */
 	RelevantAttributesToCapture.Add(GetCharacterDamageCapture().AttackPowerDef);
 	RelevantAttributesToCapture.Add(GetCharacterDamageCapture().DefensePowerDef);
+	RelevantAttributesToCapture.Add(GetCharacterDamageCapture().DamageTakenDef);
 
 }
 
@@ -61,7 +62,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 	
 	float SourceAttackPower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetCharacterDamageCapture().AttackPowerDef, EvalParams, SourceAttackPower);
-	Debug::Print(TEXT("Source Attack Power"), SourceAttackPower);
+	// Debug::Print(TEXT("Source Attack Power"), SourceAttackPower);
 
 	float BaseDamage = 0.f;
 	int32 UsedLightAttackComboCount = 0;
@@ -72,38 +73,38 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 		if (TagMagnitude.Key.MatchesTagExact(PlayerGameplayTags::Shared_SetByCaller_BaseDamage))
 		{
 			BaseDamage = TagMagnitude.Value;
-			Debug::Print(TEXT("Base Damage"), BaseDamage);
+			// Debug::Print(TEXT("Base Damage"), BaseDamage);
 		}
 
 		if (TagMagnitude.Key.MatchesTagExact(PlayerGameplayTags::Player_SetByCaller_AttackType_Light))
 		{
 			UsedLightAttackComboCount = TagMagnitude.Value;
-			Debug::Print(TEXT("Used Light Attack Combo Count"), UsedLightAttackComboCount);
+			// Debug::Print(TEXT("Used Light Attack Combo Count"), UsedLightAttackComboCount);
 		}
 
 		if (TagMagnitude.Key.MatchesTagExact(PlayerGameplayTags::Player_SetByCaller_AttackType_Heavy))
 		{
 			UsedHeavyAttackComboCount = TagMagnitude.Value;
-			Debug::Print(TEXT("Used Heavy Attack Combo Count"), UsedHeavyAttackComboCount);
+			// Debug::Print(TEXT("Used Heavy Attack Combo Count"), UsedHeavyAttackComboCount);
 		}
 	}
 
 	float TargetDefensePower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetCharacterDamageCapture().DefensePowerDef, EvalParams, TargetDefensePower);
-	Debug::Print(TEXT("Target Defense Power"), TargetDefensePower);
+	// Debug::Print(TEXT("Target Defense Power"), TargetDefensePower);
 
 	if (UsedLightAttackComboCount != 0)
 	{
 		const float DamageIncreasePercentLight = (UsedLightAttackComboCount - 1) * 0.05 + 1.0f; // 5% increase per light attack combo
 		BaseDamage *= DamageIncreasePercentLight;
-		Debug::Print(TEXT("Scaled Base Damage Light"), BaseDamage);
+		// Debug::Print(TEXT("Scaled Base Damage Light"), BaseDamage);
 	}
 
 	if (UsedHeavyAttackComboCount != 0)
 	{
 		const float DamageIncreasePercentHeavy = (UsedHeavyAttackComboCount - 1) * 0.1 + 1.0f; // 10% increase per heavy attack combo
 		BaseDamage *= DamageIncreasePercentHeavy;
-		Debug::Print(TEXT("Scaled Base Damage Heavy"), BaseDamage);
+		// Debug::Print(TEXT("Scaled Base Damage Heavy"), BaseDamage);
 	}
 
 	// Final Damage
