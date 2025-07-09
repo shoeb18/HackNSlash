@@ -3,6 +3,8 @@
 
 #include "AbilitySystem/CharacterAttributeSet.h"
 #include "GameplayEffectExtension.h"
+#include "CharacterFunctionLibrary.h"
+#include "PlayerGameplayTags.h"
 
 #include "DebugHelper.h"
 
@@ -45,14 +47,17 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 			NewCurrentHealth
 		);
 
-		Debug::Print(DebugString, FColor::Red, -1);
+		// Debug::Print(DebugString, FColor::Red, -1);
 
 		// TODO: Notify the UI
 
-		// TODO: Character death logic
+		// Death Logic
 		if (NewCurrentHealth == 0.f)
 		{
-
+			UCharacterFunctionLibrary::AddGameplayTagToActorIfNone(
+				Data.Target.GetAvatarActor(),
+				PlayerGameplayTags::Shared_Status_Dead
+			);
 		}
 	}
 }
