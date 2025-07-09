@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "Interfaces/PawnCombatInterface.h"
+#include "Interfaces/PawnUIInterface.h"
 #include "BaseCharacter.generated.h"
 
 class UCharacterAbilitySystemComponent;
@@ -13,7 +14,7 @@ class UCharacterAttributeSet;
 class UDataAsset_StartUpDataBase;
 
 UCLASS()
-class HACKNSLASH_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface
+class HACKNSLASH_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface, public IPawnUIInterface
 {
 	GENERATED_BODY()
 
@@ -55,4 +56,8 @@ public:
 	{
 		return CharacterAttributeSet;
 	}
+
+	//~ Begin IPawnUIInterface.
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	//~ End IPawnUIInterface.
 };

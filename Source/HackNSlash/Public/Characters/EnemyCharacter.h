@@ -8,6 +8,7 @@
 
 
 class UEnemyCombatComponent;
+class UEnemyUIComponent;
 /**
  * 
  */
@@ -23,6 +24,10 @@ public:
 	UPawnCombatComponent* GetPawnCombatComponent() const override;
 	//~ End IPawnCombatInterface Interface.
 
+	//~ Begin IPawnUIInterface.
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	//~ End IPawnUIInterface.
+
 protected:
 
 	//~ Begin APawn Interface.
@@ -32,6 +37,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
 	UEnemyCombatComponent* EnemyCombatComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
+	UEnemyUIComponent* EnemyUIComponent;
 
 private:
 	void InitEnemyStartupData();

@@ -43,3 +43,8 @@ void ABaseCharacter::PossessedBy(AController* NewController)
 	}
 }
 
+UPawnUIComponent* ABaseCharacter::GetPawnUIComponent() const
+{
+	return nullptr;
+}
+
