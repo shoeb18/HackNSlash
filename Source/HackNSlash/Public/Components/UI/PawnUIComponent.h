@@ -6,6 +6,7 @@
 #include "Components/PawnExtensionComponentBase.h"
 #include "PawnUIComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPercentChangedDelegate, float, NewPercent);
 /**
  * 
  */
@@ -14,4 +15,7 @@ class HACKNSLASH_API UPawnUIComponent : public UPawnExtensionComponentBase
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(BlueprintAssignable, Category = "UI")
+	FOnPercentChangedDelegate OnCurrentHealthChanged;
 };

@@ -57,4 +57,7 @@ public:
 	FGameplayAttributeData DamageTaken;
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, DamageTaken);
 
+private:
+	TWeakInterfacePtr<class IPawnUIInterface> CachedPawnUIInterface;
+
 };

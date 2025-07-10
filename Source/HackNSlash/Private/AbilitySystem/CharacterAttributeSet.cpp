@@ -5,6 +5,9 @@
 #include "GameplayEffectExtension.h"
 #include "CharacterFunctionLibrary.h"
 #include "PlayerGameplayTags.h"
+#include "Interfaces/PawnUIInterface.h"
+#include "Components/UI/PawnUIComponent.h"
+#include "Components/UI/HeroUIComponent.h"
 
 #include "DebugHelper.h"
 
@@ -20,18 +23,38 @@ UCharacterAttributeSet::UCharacterAttributeSet()
 
 void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
+	if (!CachedPawnUIInterface.IsValid())
+	{
+		CachedPawnUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
+	}
+	checkf(CachedPawnUIInterface.IsValid(), TEXT("CachedPawnUIInterface is not valid. Make sure the actor implements IPawnUIInterface."));
+
+	UPawnUIComponent* PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();
+	checkf(PawnUIComponent, TEXT("Couldn't extract a PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetActorNameOrLabel());
+
+
+	// Current Health
 	if (Data.EvaluatedData.Attribute == GetCurrentHealthAttribute())
 	{
 		const float NewCurrentHealth = FMath::Clamp(GetCurrentHealth(), 0.0f, GetMaxHealth());
 		SetCurrentHealth(NewCurrentHealth);
+
+		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 	}
 
+	// Current Rage Hero Specific Logic
 	if (Data.EvaluatedData.Attribute == GetCurrentRageAttribute())
 	{
 		const float NewCurrentRage = FMath::Clamp(GetCurrentRage(), 0.0f, GetMaxRage());
 		SetCurrentRage(NewCurrentRage);
+
+		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
+		{
+			HeroUIComponent->OnCurrentRageChanged.Broadcast(GetCurrentRage() / GetMaxRage());
+		}
 	}
 
+	// Damage Taken 
 	if (Data.EvaluatedData.Attribute == GetDamageTakenAttribute())
 	{
 		const float oldHealth = GetCurrentHealth();
@@ -49,7 +72,7 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 
 		// Debug::Print(DebugString, FColor::Red, -1);
 
-		// TODO: Notify the UI
+		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 
 		// Death Logic
 		if (NewCurrentHealth == 0.f)

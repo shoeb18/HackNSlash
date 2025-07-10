@@ -13,5 +13,9 @@ UCLASS()
 class HACKNSLASH_API UHeroUIComponent : public UPawnUIComponent
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY(BlueprintAssignable, Category = "UI")
+	FOnPercentChangedDelegate OnCurrentRageChanged;
 	
 };

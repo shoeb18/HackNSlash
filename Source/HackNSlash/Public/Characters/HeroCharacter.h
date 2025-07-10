@@ -30,7 +30,10 @@ public:
 
 	//~ Begin IPawnUIInterface.
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UHeroUIComponent* GetHeroUIComponent() const override;
 	//~ End IPawnUIInterface.
+
+
 	
 protected:
 
