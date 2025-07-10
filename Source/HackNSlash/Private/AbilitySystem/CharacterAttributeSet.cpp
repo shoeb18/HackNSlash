@@ -75,7 +75,7 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 
 		// Death Logic
-		if (NewCurrentHealth == 0.f)
+		if (GetCurrentHealth() == 0.f)
 		{
 			UCharacterFunctionLibrary::AddGameplayTagToActorIfNone(
 				Data.Target.GetAvatarActor(),
