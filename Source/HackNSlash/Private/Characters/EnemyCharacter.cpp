@@ -7,6 +7,8 @@
 #include "Engine/AssetManager.h"
 #include "DataAssets/StartupData/DataAsset_EnemyStartUpData.h"
 #include "Components/UI/EnemyUIComponent.h"
+#include "Components/WidgetComponent.h"
+#include "Widgets/CharacterWidgetBase.h"
 
 #include "DebugHelper.h"
 
@@ -29,6 +31,11 @@ AEnemyCharacter::AEnemyCharacter()
 
 	// Initialize the EnemyUIComponent
 	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
+
+	// Initialize the HealthBarWidgetComponent
+	HealthBarWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthBarWidgetComponent"));
+	HealthBarWidgetComponent->SetupAttachment(RootComponent);
+
 }
 
 UPawnCombatComponent* AEnemyCharacter::GetPawnCombatComponent() const
@@ -45,6 +52,16 @@ UEnemyUIComponent* AEnemyCharacter::GetEnemyUIComponent() const
 {
 	return EnemyUIComponent;
 }
+
+void AEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (UCharacterWidgetBase* HealthWidget = Cast<UCharacterWidgetBase>(HealthBarWidgetComponent->GetUserWidgetObject()))
+	{
+		HealthWidget->InitEnemyCreatedWidget(this);
+	}
+} 
 
 void AEnemyCharacter::PossessedBy(AController* NewController)
 {
